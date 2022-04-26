@@ -12,10 +12,8 @@ class FirebaseService extends GetxService {
 
   User? get currentUser => FirebaseAuth.instance.currentUser;
 
-  @override
-  void onInit() async {
+  Future<void> initService() async {
     await Firebase.initializeApp();
-    super.onInit();
   }
 
   Future<UserCredential?> registerUser(

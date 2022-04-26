@@ -8,15 +8,13 @@ class LocalStorageService extends GetxService {
   AppUser? get user => _userDataBox.get('user');
 
   @override
-  void onInit() async {
-    _userDataBox = await Hive.openBox<AppUser>('user_data');
-    super.onInit();
-  }
-
-  @override
   void onClose() async {
     await _userDataBox.close();
     super.onClose();
+  }
+
+  Future<void> initService() async {
+    _userDataBox = await Hive.openBox<AppUser>('user_data');
   }
 
   Future<void> updateUser(AppUser user) async {

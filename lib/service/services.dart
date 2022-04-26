@@ -6,8 +6,10 @@ import 'package:dice_game/service/local_storage_service.dart';
 import 'package:get/get.dart';
 
 Future<void> initServices() async {
-  Get.put<FirebaseService>(FirebaseService(), permanent: true);
-  Get.put<LocalStorageService>(LocalStorageService(), permanent: true);
+  await Get.put<FirebaseService>(FirebaseService(), permanent: true)
+      .initService();
+  await Get.put<LocalStorageService>(LocalStorageService(), permanent: true)
+      .initService();
 
   Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
   Get.lazyPut<SignupController>(() => SignupController(), fenix: true);

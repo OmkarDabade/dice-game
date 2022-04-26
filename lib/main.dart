@@ -1,5 +1,6 @@
 import 'package:dice_game/app/routes/routes.dart';
 import 'package:dice_game/model/app_user.dart';
+import 'package:dice_game/service/firebase_services.dart';
 import 'package:dice_game/service/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ void main() async {
 
   Hive.registerAdapter(AppUserAdapter());
 
-  initServices();
+  await initServices();
 
   runApp(const DiceGame());
 }
@@ -23,7 +24,9 @@ class DiceGame extends StatelessWidget {
     return GetMaterialApp(
       title: 'Dice Game',
       navigatorKey: Get.key,
-      initialRoute: Routes.loginView,
+      initialRoute: Get.find<FirebaseService>().currentUser != null
+          ? Routes.homeView
+          : Routes.loginView,
       onGenerateRoute: Routes.generateRoute,
       debugShowCheckedModeBanner: false,
     );
