@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 class LocalStorageService extends GetxService {
   late Box<AppUser> _userDataBox;
 
-  AppUser? get user => _userDataBox.getAt(0);
+  AppUser? get user => _userDataBox.get('user');
 
   @override
   void onInit() async {
@@ -20,6 +20,6 @@ class LocalStorageService extends GetxService {
   }
 
   Future<void> updateUser(AppUser user) async {
-    await _userDataBox.putAt(0, user);
+    await _userDataBox.put('user', user);
   }
 }

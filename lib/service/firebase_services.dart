@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:dice_game/app/constants.dart';
 import 'package:dice_game/model/app_user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +22,8 @@ class FirebaseService extends GetxService {
       {required String email, required String password}) async {
     try {
       return await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .timeout(timeoutDuration);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         throw 'Email is already used\nPlease check the email.';
@@ -30,6 +34,8 @@ class FirebaseService extends GetxService {
       } else if (e.code == 'weak-password') {
         throw 'Weak passsword\nPlease make the password more strong\n\nYou can special characters like @!#\$%^*()';
       }
+    } on TimeoutException {
+      throw 'Request timedout\nPlease try again.';
     } catch (e) {
       print(e);
       throw 'Error occured\nPlease try again later';
@@ -52,7 +58,10 @@ class FirebaseService extends GetxService {
       } else if (e.code == 'wrong-password') {
         throw 'Wrong passsword\nPlease check the password';
       }
+    } on TimeoutException {
+      throw 'Request timedout\nPlease try again.';
     } catch (e) {
+      print(e);
       throw 'Error occured\nPlease try again later';
     }
     return null;

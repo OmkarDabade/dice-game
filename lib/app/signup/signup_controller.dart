@@ -36,7 +36,9 @@ class SignupController extends GetxController {
 
           await Get.toNamed(Routes.homeView);
         }
-      } catch (e) {
+      } catch (e, s) {
+        print(e);
+        print(s);
         await Get.dialog<AlertDialog>(AlertDialog(
           title: const Text('Error'),
           content: Text(e.toString()),
