@@ -1,15 +1,15 @@
-import 'package:dice_game/model/user.dart';
+import 'package:dice_game/model/app_user.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
 class LocalStorageService extends GetxService {
-  late Box<User> _userDataBox;
+  late Box<AppUser> _userDataBox;
 
-  User? get user => _userDataBox.getAt(0);
+  AppUser? get user => _userDataBox.getAt(0);
 
   @override
   void onInit() async {
-    _userDataBox = await Hive.openBox<User>('user_data');
+    _userDataBox = await Hive.openBox<AppUser>('user_data');
     super.onInit();
   }
 
@@ -19,7 +19,7 @@ class LocalStorageService extends GetxService {
     super.onClose();
   }
 
-  Future<void> updateUser(User user) async {
+  Future<void> updateUser(AppUser user) async {
     await _userDataBox.putAt(0, user);
   }
 }

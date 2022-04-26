@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../routes/routes.dart';
 import 'login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -9,8 +11,12 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
       body: GetBuilder<LoginController>(builder: (model) {
-        return Column(
+        return ListView(
+          padding: const EdgeInsets.all(16.0),
           children: [
             SizedBox(
               height: Get.height * 0.4,
@@ -22,16 +28,6 @@ class LoginView extends GetView<LoginController> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0,
                       color: Colors.red),
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Login',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
                 ),
               ),
             ),
@@ -82,15 +78,38 @@ class LoginView extends GetView<LoginController> {
               ),
             ),
             const SizedBox(height: 30.0),
-            SizedBox(
-              width: Get.width / 2,
-              height: 45.0,
-              child: ElevatedButton.icon(
-                onPressed: model.login,
-                icon: const Icon(Icons.login_rounded),
-                label: const Text('Login'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: Get.width / 2,
+                height: 45.0,
+                child: ElevatedButton.icon(
+                  onPressed: model.login,
+                  icon: const Icon(Icons.login_rounded),
+                  label: const Text('Login'),
+                ),
               ),
-            )
+            ),
+            const SizedBox(height: 50.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RichText(
+                text: TextSpan(
+                  text: 'Haven\'t registered? ',
+                  style: const TextStyle(color: Colors.black54),
+                  children: [
+                    TextSpan(
+                      text: 'Register here',
+                      style: const TextStyle(color: Colors.blue),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () async {
+                          await Get.offAllNamed(Routes.signupView);
+                        },
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         );
       }),

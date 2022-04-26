@@ -1,41 +1,47 @@
 import 'package:hive/hive.dart';
 
-part 'user.g.dart';
+part 'app_user.g.dart';
 
 @HiveType(typeId: 0)
-class User {
+class AppUser {
   @HiveField(0)
-  String name;
+  String? name;
 
   @HiveField(1)
-  String email;
+  String? email;
 
   @HiveField(2)
-  int cummulativeScore;
+  String? userId;
 
   @HiveField(3)
+  int cummulativeScore;
+
+  @HiveField(4)
   int attemptsRemaining;
 
-  User({
-    required this.name,
-    required this.email,
+  AppUser({
+    this.name,
+    this.email,
+    this.userId,
     this.cummulativeScore = 0,
     this.attemptsRemaining = 10,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory AppUser.fromJson(Map<String, dynamic> json) {
+    return AppUser(
       name: json['name'],
       email: json['email'],
+      userId: json['user_id'],
       cummulativeScore: json['cummulative_score'],
       attemptsRemaining: json['attempts_remaining'],
     );
   }
 
-  Map<String, dynamic> tojson() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'name': name,
       'email': email,
+      'user_id': userId,
       'cummulative_score': cummulativeScore,
       'attempts_remaining': attemptsRemaining,
     };

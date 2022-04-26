@@ -1,3 +1,5 @@
+import 'package:dice_game/app/routes/routes.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +11,12 @@ class SignupView extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sign Up'),
+      ),
       body: GetBuilder<SignupController>(builder: (model) {
-        return Column(
+        return ListView(
+          padding: const EdgeInsets.all(16.0),
           children: [
             SizedBox(
               height: Get.height * 0.4,
@@ -26,16 +32,6 @@ class SignupView extends GetView<SignupController> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Sign Up',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Form(
@@ -44,6 +40,7 @@ class SignupView extends GetView<SignupController> {
                   children: [
                     TextFormField(
                       controller: model.emailController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: const InputDecoration(
                         labelText: 'E-mail',
                         isDense: true,
@@ -62,6 +59,7 @@ class SignupView extends GetView<SignupController> {
                     const SizedBox(height: 16.0),
                     TextFormField(
                       controller: model.passwordController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: const InputDecoration(
                         labelText: 'Password',
                         isDense: true,
@@ -81,6 +79,7 @@ class SignupView extends GetView<SignupController> {
                     const SizedBox(height: 16.0),
                     TextFormField(
                       controller: model.cnfPasswordController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: const InputDecoration(
                         labelText: 'Confirm password',
                         isDense: true,
@@ -105,15 +104,38 @@ class SignupView extends GetView<SignupController> {
               ),
             ),
             const SizedBox(height: 30.0),
-            SizedBox(
-              width: Get.width / 2,
-              height: 45.0,
-              child: ElevatedButton.icon(
-                onPressed: model.signup,
-                icon: const Icon(Icons.account_box_rounded),
-                label: const Text('Sign Up'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: Get.width / 2,
+                height: 45.0,
+                child: ElevatedButton.icon(
+                  onPressed: model.signup,
+                  icon: const Icon(Icons.account_box_rounded),
+                  label: const Text('Sign Up'),
+                ),
               ),
-            )
+            ),
+            const SizedBox(height: 50.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RichText(
+                text: TextSpan(
+                  text: 'Already registered? ',
+                  style: const TextStyle(color: Colors.black54),
+                  children: [
+                    TextSpan(
+                      text: 'Login here',
+                      style: const TextStyle(color: Colors.blue),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () async {
+                          await Get.offAllNamed(Routes.loginView);
+                        },
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         );
       }),
