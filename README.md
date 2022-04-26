@@ -1,16 +1,19 @@
-# dice_game
+# Dice Game
 
-A new Flutter project.
+An app created using Flutter and Firebase. 
+The application is a game, where the player can press a button to "Roll a dice"
 
-## Getting Started
+## Features
+* Multi User Application
+* Leaderboard with Highest Scores.
+* Player's score will be persistent between sessions if the user has not finished 10 attempts
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+### Rules
+* User gets a random result anywhere between 1 and 6
+* Maximum of 10 Attempts for each Player
+* Result of the dice roll will be added to the Player's score. 
+* After 10 attempts the player's results will be logged into the leaderboard.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<!-- Currently Logged In Player's information and the Current Application
+Version should be visible in the application Option to Logout -->
