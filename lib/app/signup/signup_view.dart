@@ -18,6 +18,7 @@ class SignupView extends GetView<SignupController> {
               child: const Center(child: Text('Roll a dice')),
             ),
             Form(
+              key: model.formKey,
               child: Column(
                 children: [
                   TextFormField(
@@ -72,11 +73,9 @@ class SignupView extends GetView<SignupController> {
             ),
             ElevatedButton.icon(
               onPressed: () async {
-                await model.signup(
-                    email: model.emailController.text.trim(),
-                    password: model.passwordController.text.trim());
+                await model.signup();
               },
-              icon: const Icon(Icons.login_rounded),
+              icon: const Icon(Icons.account_box_rounded),
               label: const Text('Signup'),
             )
           ],
