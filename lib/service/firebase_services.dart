@@ -9,11 +9,38 @@ import 'package:get/get.dart';
 
 class FirebaseService extends GetxService {
   FirebaseFirestore get firestore => FirebaseFirestore.instance;
+  RxList<AppUser> users = <AppUser>[].obs;
 
   User? get currentUser => FirebaseAuth.instance.currentUser;
 
   Future<void> initService() async {
     await Firebase.initializeApp();
+
+    FirebaseFirestore.instance.collection('users').snapshots().listen((event) {
+      if (event.docs.isNotEmpty) {
+        List<AppUser> newUsersData = [];
+
+        for (QueryDocumentSnapshot<Map<String, dynamic>> data in event.docs) {
+          newUsersData.add(AppUser.fromJson(data.data()));
+        }
+
+        users.clear();
+        users.addAll(newUsersData);
+      }
+    });
+
+    await FirebaseFirestore.instance.collection('users').get().then((event) {
+      if (event.docs.isNotEmpty) {
+        List<AppUser> newUsersData = [];
+
+        for (QueryDocumentSnapshot<Map<String, dynamic>> data in event.docs) {
+          newUsersData.add(AppUser.fromJson(data.data()));
+        }
+
+        users.clear();
+        users.addAll(newUsersData);
+      }
+    });
   }
 
   Future<UserCredential?> registerUser(
@@ -35,7 +62,6 @@ class FirebaseService extends GetxService {
     } on TimeoutException {
       throw 'Request timedout\nPlease try again.';
     } catch (e) {
-      print(e);
       throw 'Error occured\nPlease try again later';
     }
     return null;
@@ -59,7 +85,6 @@ class FirebaseService extends GetxService {
     } on TimeoutException {
       throw 'Request timedout\nPlease try again.';
     } catch (e) {
-      print(e);
       throw 'Error occured\nPlease try again later';
     }
     return null;

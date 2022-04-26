@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 
 part 'app_user.g.dart';
@@ -45,5 +46,13 @@ class AppUser {
       'cummulative_score': cummulativeScore,
       'attempts_remaining': attemptsRemaining,
     };
+  }
+
+  @override
+  int get hashCode => hashValues(email, userId);
+
+  @override
+  bool operator ==(covariant AppUser other) {
+    return other.email == email && other.userId == userId;
   }
 }

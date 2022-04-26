@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:dice_game/model/app_user.dart';
+import 'package:dice_game/service/firebase_services.dart';
 import 'package:dice_game/service/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class HomeController extends GetxController {
 
   final LocalStorageService _localStorageService =
       Get.find<LocalStorageService>();
+  final FirebaseService _firebaseService = Get.find<FirebaseService>();
 
   @override
   void onInit() {
@@ -21,8 +23,10 @@ class HomeController extends GetxController {
   }
 
   Future<bool> saveDataLocally() async {
-    if (appUser != null) _localStorageService.updateUser(appUser!);
-
+    if (appUser != null) {
+      _localStorageService.updateUser(appUser!);
+      _firebaseService.updateUserInCloud(appUser!);
+    }
     return true;
   }
 

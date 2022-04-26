@@ -1,4 +1,5 @@
 import 'package:dice_game/app/home/home_controller.dart';
+import 'package:dice_game/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -67,6 +68,17 @@ class HomeView extends GetView<HomeController> {
                 child: ElevatedButton(
                   onPressed: model.calculateResult,
                   child: const Text('Roll a dice'),
+                ),
+              ),
+              const SizedBox(height: 50.0),
+              SizedBox(
+                height: 40.0,
+                width: Get.width / 2,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await Get.toNamed(Routes.leaderboardView);
+                  },
+                  child: const Text('Leaderboard'),
                 ),
               ),
             ],
