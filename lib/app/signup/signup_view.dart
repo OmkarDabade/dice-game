@@ -92,8 +92,8 @@ class SignupView extends GetView<SignupController> {
                         if (cnfPassword == null || cnfPassword.isEmpty) {
                           return 'Please enter password';
                         }
-                        if (cnfPassword != model.cnfPasswordController.text) {
-                          return 'Passowrds doesnt match';
+                        if (cnfPassword != model.passwordController.text) {
+                          return 'Passwords doesnt match';
                         }
 
                         return null;

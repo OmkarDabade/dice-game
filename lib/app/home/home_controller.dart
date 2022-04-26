@@ -25,7 +25,6 @@ class HomeController extends GetxController {
   Future<bool> saveDataLocally() async {
     if (appUser != null) {
       _localStorageService.updateUser(appUser!);
-      _firebaseService.updateUserInCloud(appUser!);
     }
     return true;
   }
@@ -40,6 +39,8 @@ class HomeController extends GetxController {
 
       appUser?.cummulativeScore += result;
       appUser?.attemptsRemaining -= 1;
+
+      _firebaseService.updateUserInCloud(appUser!);
 
       update();
     } else {
