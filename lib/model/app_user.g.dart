@@ -17,9 +17,9 @@ class AppUserAdapter extends TypeAdapter<AppUser> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AppUser(
-      name: fields[0] as String,
-      email: fields[1] as String,
-      userId: fields[2] as String,
+      name: fields[0] as String?,
+      email: fields[1] as String?,
+      userId: fields[2] as String?,
       cummulativeScore: fields[3] as int,
       attemptsRemaining: fields[4] as int,
     );

@@ -20,7 +20,7 @@ class LoginController extends GetxController {
             email: emailController.text.trim(),
             password: passwordController.text.trim());
 
-        await Get.toNamed(Routes.homeView);
+        await Get.offAllNamed(Routes.homeView);
       } catch (e) {
         await Get.dialog<AlertDialog>(AlertDialog(
           title: const Text('Error'),

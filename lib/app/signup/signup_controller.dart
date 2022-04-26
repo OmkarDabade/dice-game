@@ -34,7 +34,7 @@ class SignupController extends GetxController {
           await _firebaseService.updateUserInCloud(user);
           await _localStorageService.updateUser(user);
 
-          await Get.toNamed(Routes.homeView);
+          await Get.offAllNamed(Routes.homeView);
         }
       } catch (e, s) {
         print(e);

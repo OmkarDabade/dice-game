@@ -23,7 +23,7 @@ class DiceGame extends StatelessWidget {
     return GetMaterialApp(
       title: 'Dice Game',
       navigatorKey: Get.key,
-      initialRoute: Routes.signupView,
+      initialRoute: Routes.loginView,
       onGenerateRoute: Routes.generateRoute,
       debugShowCheckedModeBanner: false,
     );
